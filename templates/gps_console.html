@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <h2>GPS Console</h2>
+</div>
+<div class="three-column-layout">
+    <!-- Column 1: Filter Controls & Search -->
+    <div class="card filter-controls">
+        <div class="card-header"><h3>Filter & Search</h3><span>Find a location to generate data</span></div>
+        <div class="card-body">
+            <!-- NEW: Search Form -->
+            <form id="geocode-form" style="margin-bottom: 24px;">
+                <label for="address-input" style="display:block; margin-bottom: 8px;">Search Location</label>
+                <input type="text" id="address-input" placeholder="e.g., Golden Gate Bridge" style="width: 100%; padding: 8px; background-color: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px; margin-bottom: 8px;">
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Search</button>
+            </form>
+
+            <label for="accuracy-threshold">Accuracy Threshold</label>
+            <select id="accuracy-threshold"><option>All Accuracy Levels</option></select>
+            <label for="satellite-count">Satellite Count</label>
+            <select id="satellite-count"><option>All Satellite Counts</option></select>
+            <label for="time-range">Time Range</label>
+            <select id="time-range"><option>Last 5 Minutes</option></select>
+            <button class="btn btn-outline" style="width: 100%; margin-top: 20px;">Reset Filters</button>
+        </div>
+    </div>
+
+    <!-- Column 2: GPS Coordinates Table (UPDATED STRUCTURE FOR SCROLLING) -->
+    <div class="card data-table-card">
+        <div class="card-header"><h3>GPS Coordinates</h3><span id="gps-table-subtitle">Search or click map to begin</span></div>
+        <!-- This new card-body wrapper enables robust flex-based scrolling -->
+        <div class="card-body" style="padding: 0; display: flex; flex-direction: column;">
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Latitude</th><th>Longitude</th><th>Altitude</th><th>Accuracy</th><th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gps-table-body">
+                        <!-- Initial Placeholder -->
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                                No data generated.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Column 3: Map View -->
+    <div class="card map-card">
+        <div class="card-header"><h3>Map View</h3><span>Click map to select a location</span></div>
+        <!-- IMPORTANT: The ID is now gps-map -->
+        <div id="gps-map" style="height: 300px; border-radius: 0 0 8px 8px; background-color: #333;"></div>
+        <div class="card-body">
+            <h4>Coordinate Statistics</h4>
+            <div class="stats-grid">
+                <span>Most Accurate</span><strong id="stats-most-accurate">---</strong>
+                <span>Coverage Area</span><strong id="stats-coverage-area">---</strong>
+                <span>Avg Accuracy</span><strong id="stats-avg-accuracy">---</strong>
+                <span>Data Quality</span><strong id="stats-data-quality">---</strong>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

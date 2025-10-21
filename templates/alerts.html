@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <h2>System Alerts & Notifications</h2>
+</div>
+<div class="three-column-layout">
+    <!-- Column 1: Filters -->
+    <div class="card">
+        <div class="card-header"><h3>Filter Alerts</h3></div>
+        <div class="card-body">
+            <h4>Priority</h4>
+            <ul class="category-list">
+                <li><input type="checkbox" checked> Critical</li>
+                <li><input type="checkbox" checked> High</li>
+                <li><input type="checkbox"> Medium</li>
+                <li><input type="checkbox"> Low</li>
+            </ul>
+             <h4 style="margin-top: 20px;">Status</h4>
+            <ul class="category-list">
+                <li><input type="checkbox" checked> New</li>
+                <li><input type="checkbox"> Acknowledged</li>
+                <li><input type="checkbox"> Resolved</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Column 2: Alert List -->
+    <div class="card">
+        <div class="card-header"><h3>Alert Feed</h3><span>3 New Alerts</span></div>
+        <div class="card-body alert-feed">
+            <div class="alert-item critical">
+                <div class="alert-content">
+                    <strong>GPS Spoofing Detected</strong>
+                    <span>Cyber Threat Monitor - 09:19:15</span>
+                </div>
+                <div class="alert-status">NEW</div>
+            </div>
+             <div class="alert-item high">
+                <div class="alert-content">
+                    <strong>Low Battery Warning</strong>
+                    <span>System Status - 09:22:04</span>
+                </div>
+                <div class="alert-status">NEW</div>
+            </div>
+             <div class="alert-item medium">
+                <div class="alert-content">
+                    <strong>High Wind Speed</strong>
+                    <span>Weather Adaptive - 09:23:10</span>
+                </div>
+                 <div class="alert-status">ACK</div>
+            </div>
+        </div>
+    </div>
+    <!-- Column 3: Alert Details -->
+    <div class="card">
+        <div class="card-header"><h3>Alert Details</h3></div>
+        <div class="card-body">
+            <h4>GPS Spoofing Detected</h4>
+            <span class="meta-data">Priority: CRITICAL | Source: Cyber Threat Monitor</span>
+            <p>Suspicious GPS signals detected from coordinates 40.7128, -74.0060. Signal strength anomaly indicates potential spoofing attempt. System has switched to Precision Navigator as a failsafe.</p>
+            <div class="alert-actions">
+                <button class="btn btn-secondary">Acknowledge</button>
+                <button class="btn btn-primary">Resolve</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

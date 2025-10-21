@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberMind Aviator - {{ title }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Leaflet CSS for Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- TensorFlow.js and COCO-SSD Model for Machine Learning -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@latest/dist/coco-ssd.min.js"></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#00bcd4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 17L12 22L22 17" stroke="#00bcd4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12L12 17L22 12" stroke="#00bcd4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h1>CyberMind <span class="logo-sub">Aviator</span></h1>
+        </div>
+        <nav class="main-nav">
+            <a href="{{ url_for('home') }}" class="{{ 'active' if request.path == url_for('home') else '' }}">Control Center</a>
+            <a href="{{ url_for('gps_console') }}" class="{{ 'active' if request.path == url_for('gps_console') else '' }}">GPS Console</a>
+            <a href="{{ url_for('surveillance') }}" class="{{ 'active' if request.path == url_for('surveillance') else '' }}">Surveillance</a>
+            <a href="{{ url_for('manual_control') }}" class="{{ 'active' if request.path == url_for('manual_control') else '' }}">Manual Override</a>
+        </nav>
+        <div class="system-status">
+            <span>CONN: <strong id="status-conn">--%</strong></span>
+            <span><strong id="status-time">--:--:--</strong></span>
+            <span>GPS: <strong id="status-gps">--</strong></span>
+            <button class="btn btn-emergency">Emergency</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Emergency Shutdown Modal -->
+    <div id="emergency-modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                </div>
+                <div class="header-text">
+                    <h3>Emergency Shutdown</h3>
+                    <span>This action cannot be undone</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to initiate emergency shutdown?<br>This will immediately terminate all drone operations.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-shutdown-btn" class="btn btn-danger">Confirm Shutdown</button>
+                <button id="cancel-shutdown-btn" class="btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Third-Party JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- Custom Application JS Files -->
+    <script src="{{ url_for('static', filename='js/joystick.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/gps.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/surveillance.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
